@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
@@ -18,6 +19,7 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -54,22 +56,34 @@ fun CreateBizCard() {
             shape = RoundedCornerShape(corner = CornerSize(15.dp)),
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
             colors = CardDefaults.cardColors(containerColor = Color.White)) {
-                Column(modifier = Modifier.height(300.dp).fillMaxWidth(),
+                Column(modifier = Modifier
+                    .height(300.dp)
+                    .fillMaxWidth(),
                     verticalArrangement = Arrangement.Top,
                     horizontalAlignment = Alignment.CenterHorizontally) {
-                    Surface(shape = CircleShape,
-                        color = Color.Green,
-                        border = BorderStroke(0.5.dp, Color.Black),
-                        modifier = Modifier
-                            .size(150.dp)
-                            .padding(5.dp)
-                            .shadow(20.dp, shape = CircleShape)) {
-                        Image(painter = painterResource(id = R.drawable.profile_image),
-                            contentDescription = "profile image",
-                            contentScale = ContentScale.Crop)
-                    }
+                    CreateProfileImage()
+                    Divider(modifier = Modifier.paddingFromBaseline(15.dp))
                 }
         }
+    }
+}
+
+@Composable
+private fun CreateProfileImage(modifier: Modifier = Modifier) {
+    Surface(
+        shape = CircleShape,
+        color = Color.Green,
+        border = BorderStroke(0.5.dp, Color.Black),
+        modifier = modifier
+            .size(150.dp)
+            .padding(5.dp)
+            .shadow(20.dp, shape = CircleShape)
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.profile_image),
+            contentDescription = "profile image",
+            contentScale = ContentScale.Crop
+        )
     }
 }
 
