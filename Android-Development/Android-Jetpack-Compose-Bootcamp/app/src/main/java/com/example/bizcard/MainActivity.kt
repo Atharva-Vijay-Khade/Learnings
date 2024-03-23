@@ -22,6 +22,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
@@ -56,13 +57,13 @@ fun CreateBizCard() {
                 Column(modifier = Modifier.height(300.dp).fillMaxWidth(),
                     verticalArrangement = Arrangement.Top,
                     horizontalAlignment = Alignment.CenterHorizontally) {
-                    Surface(modifier = Modifier
-                        .size(150.dp)
-                        .padding(5.dp),
-                        shape = CircleShape,
-                        color = Color.White,
+                    Surface(shape = CircleShape,
+                        color = Color.Green,
                         border = BorderStroke(0.5.dp, Color.Black),
-                        shadowElevation = 20.dp) {
+                        modifier = Modifier
+                            .size(150.dp)
+                            .padding(5.dp)
+                            .shadow(20.dp, shape = CircleShape)) {
                         Image(painter = painterResource(id = R.drawable.profile_image),
                             contentDescription = "profile image",
                             contentScale = ContentScale.Crop)
