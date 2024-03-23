@@ -5,6 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -47,21 +49,24 @@ fun CreateBizCard() {
         Card(modifier = Modifier
             .width(200.dp)
             .height(390.dp)
-            .padding(12.dp)
-                        ,shape = RoundedCornerShape(corner = CornerSize(15.dp))
-                        ,elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-                        ,colors = CardDefaults.cardColors(containerColor = Color.White)){
-                Surface(modifier = Modifier
-                    .size(150.dp)
-                    .padding(5.dp)
-                    .align(Alignment.CenterHorizontally),
-                    shape = CircleShape,
-                    color = Color.White,
-                    border = BorderStroke(0.5.dp, Color.Black),
-                    shadowElevation = 10.dp) {
+            .padding(12.dp),
+            shape = RoundedCornerShape(corner = CornerSize(15.dp)),
+            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+            colors = CardDefaults.cardColors(containerColor = Color.White)) {
+                Column(modifier = Modifier.height(300.dp).fillMaxWidth(),
+                    verticalArrangement = Arrangement.Top,
+                    horizontalAlignment = Alignment.CenterHorizontally) {
+                    Surface(modifier = Modifier
+                        .size(150.dp)
+                        .padding(5.dp),
+                        shape = CircleShape,
+                        color = Color.White,
+                        border = BorderStroke(0.5.dp, Color.Black),
+                        shadowElevation = 20.dp) {
                         Image(painter = painterResource(id = R.drawable.profile_image),
                             contentDescription = "profile image",
                             contentScale = ContentScale.Crop)
+                    }
                 }
         }
     }
