@@ -1,6 +1,7 @@
 package com.example.bizcard
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
@@ -17,9 +18,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -59,15 +62,29 @@ fun CreateBizCard() {
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
             colors = CardDefaults.cardColors(containerColor = Color.White)) {
                 Column(modifier = Modifier
-                    .height(300.dp)
+                    .height(400.dp)
                     .fillMaxWidth(),
                     verticalArrangement = Arrangement.Top,
                     horizontalAlignment = Alignment.CenterHorizontally) {
                     CreateProfileImage()
                     Divider(modifier = Modifier.paddingFromBaseline(15.dp))
                     CreateInfo()
+                    CreatePortfolio()
                 }
         }
+    }
+}
+
+@Composable
+private fun CreatePortfolio() {
+    Button(modifier = Modifier.padding(20.dp), onClick = {
+        Log.d("Clicked", "View Portfolio Clicked")
+    }) {
+        Text(
+            text = "Portfolio",
+            style = MaterialTheme.typography.displayMedium,
+            fontSize = 15.sp
+        )
     }
 }
 
