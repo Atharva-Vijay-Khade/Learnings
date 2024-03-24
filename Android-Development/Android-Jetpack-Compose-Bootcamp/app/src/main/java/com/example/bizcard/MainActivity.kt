@@ -6,9 +6,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -38,6 +40,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -54,6 +57,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@Preview(showBackground = true)
 @Composable
 fun CreateBizCard() {
     Surface(modifier = Modifier
@@ -71,7 +75,9 @@ fun CreateBizCard() {
                     .fillMaxWidth(),
                     verticalArrangement = Arrangement.Top,
                     horizontalAlignment = Alignment.CenterHorizontally) {
-                    CreateProfileImage()
+                    // you can use CreateProfileImage(modifier = Modifier.size(300.dp))
+                    // rather than using this integer variable for image size
+                    CreateProfileImage(300)
                     Divider(modifier = Modifier.paddingFromBaseline(15.dp))
                     CreateInfo()
                     CreatePortfolio()
@@ -80,7 +86,6 @@ fun CreateBizCard() {
     }
 }
 
-@Preview(showBackground = true)
 @Composable
 private fun Content() {
     Box(modifier = Modifier
@@ -103,7 +108,31 @@ private fun Content() {
 fun Portfolio(data: List<String>) {
     LazyColumn {
         items(data) {item ->
-            Text(text = item)
+            Surface(modifier = Modifier
+                .height(150.dp)
+                .fillMaxWidth()
+                .padding(10.dp),
+                border = BorderStroke(width = 2.dp, color = Color.Gray),
+                shape = RoundedCornerShape(corner = CornerSize(5.dp))) {
+                Row(modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp)
+                    .background(color = Color.White),
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    verticalAlignment = Alignment.CenterVertically
+                    ) {
+                    // you can use CreateProfileImage(modifier = Modifier.size(100.dp))
+                    // rather than using this integer variable for image size
+                    CreateProfileImage(100)
+                    Column() {
+                        Text(text = item,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.Black)
+                        Text(text = "A great project indeed",
+                            color = Color.Gray)
+                    }
+                }
+            }
         }
     }
 }
@@ -127,7 +156,7 @@ private fun CreatePortfolio() {
         Content()
     }
     else {
-
+        Box{}
     }
 }
 
@@ -153,13 +182,13 @@ private fun CreateInfo(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun CreateProfileImage(modifier: Modifier = Modifier) {
+private fun CreateProfileImage(imageSize: Int, modifier: Modifier = Modifier) {
     Surface(
         shape = CircleShape,
         color = Color.Green,
         border = BorderStroke(0.5.dp, Color.Black),
         modifier = modifier
-            .size(150.dp)
+            .size(imageSize.dp)
             .padding(5.dp)
             .shadow(20.dp, shape = CircleShape)
     ) {
