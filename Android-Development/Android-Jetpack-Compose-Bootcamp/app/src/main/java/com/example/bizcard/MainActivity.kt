@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,6 +16,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -26,6 +29,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -59,10 +64,10 @@ fun CreateBizCard() {
             .height(390.dp)
             .padding(12.dp),
             shape = RoundedCornerShape(corner = CornerSize(15.dp)),
-            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
             colors = CardDefaults.cardColors(containerColor = Color.White)) {
                 Column(modifier = Modifier
-                    .height(400.dp)
+                    .height(900.dp)
                     .fillMaxWidth(),
                     verticalArrangement = Arrangement.Top,
                     horizontalAlignment = Alignment.CenterHorizontally) {
@@ -75,16 +80,54 @@ fun CreateBizCard() {
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+private fun Content() {
+    Box(modifier = Modifier
+        .padding(5.dp)
+        .fillMaxWidth()
+        .fillMaxHeight()) {
+        Surface(modifier = Modifier
+            .padding(5.dp)
+            .fillMaxHeight()
+            .fillMaxWidth(),
+            shape = RoundedCornerShape(corner = CornerSize(10.dp)),
+            border = BorderStroke(width = 5.dp, color = Color.Gray),
+            color = Color.White) {
+                Portfolio(data = listOf("Project 1", "Project 2", "Project 3", "Project 4"))
+        }
+    }
+}
+
+@Composable
+fun Portfolio(data: List<String>) {
+    LazyColumn {
+        items(data) {item ->
+            Text(text = item)
+        }
+    }
+}
+
+
 @Composable
 private fun CreatePortfolio() {
+    val buttonClickedState = remember {
+        mutableStateOf(false)
+    }
     Button(modifier = Modifier.padding(20.dp), onClick = {
-        Log.d("Clicked", "View Portfolio Clicked")
+        buttonClickedState.value = !buttonClickedState.value
     }) {
         Text(
             text = "Portfolio",
             style = MaterialTheme.typography.displayMedium,
             fontSize = 15.sp
         )
+    }
+    if(buttonClickedState.value) {
+        Content()
+    }
+    else {
+
     }
 }
 
@@ -128,7 +171,7 @@ private fun CreateProfileImage(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     BizCardTheme {
